@@ -15,11 +15,15 @@ struct code_char HuffmanCode[256];
 void ConstruireTableOcc(FILE *fichier, TableOcc_t *TableOcc) {
 
     int c;
-    
+    int j=0;
+    while (j<256) {
+        TableOcc->tab[j]=0;
+        j++;
+    }
 
     c = fgetc(fichier);
     while (c != EOF) {
-        /* A COMPLETER ... */
+        TableOcc->tab[c]++;
         c = fgetc(fichier);
     };
 
@@ -33,15 +37,35 @@ void ConstruireTableOcc(FILE *fichier, TableOcc_t *TableOcc) {
 }
 
 fap InitHuffman(TableOcc_t *TableOcc) {
-    /* A COMPLETER */
-    printf("Programme non realise (InitHuffman)\n");
-    return NULL;
+    fap file=creer_fap_vide();
+    int i = 0;
+    while (i<256) {
+        if (TableOcc->tab[i] != 0) {
+            Arbre a = ArbreVide();
+            a = NouveauNoeud(ArbreVide(),i,ArbreVide());
+            file=inserer(file,a,TableOcc->tab[i]);
+        }
+        i++;
+    }
+    return file;
 }
 
 Arbre ConstruireArbre(fap file) {
-    /* A COMPLETER */
-    printf("Programme non realise (ConstruireArbre)\n");
-    return ArbreVide();
+    if (est_fap_vide(file)) {
+        return NULL;
+    }
+    while (1) {
+        Arbre a = ArbreVide();
+        Arbre b = ArbreVide();
+        Arbre c = ArbreVide();
+        file=extraire(file,&a,&file->priorite);
+        if (est_fap_vide(file)) {
+            return a;
+        }
+        file=extraire(file,&b,&file->priorite);
+        c=NouveauNoeud(a,a->etiq+b->etiq,b);
+        file=inserer(file,c,(int)(c->etiq));
+    }
 }
 
 
