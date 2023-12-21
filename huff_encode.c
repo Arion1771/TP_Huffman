@@ -15,9 +15,7 @@ struct code_char HuffmanCode[256];
 void ConstruireTableOcc(FILE *fichier, TableOcc_t *TableOcc) {
 
     int c;
-
-    /* A COMPLETER ... */
-    printf("Programme non realise (ConstruireTableOcc)\n");
+    
 
     c = fgetc(fichier);
     while (c != EOF) {
