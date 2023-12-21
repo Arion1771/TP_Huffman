@@ -46,7 +46,7 @@ fap InitHuffman(TableOcc_t *TableOcc) {
             file=inserer(file,a,TableOcc->tab[i]);
         }
         i++;
-    }
+    }   
     return file;
 }
 
@@ -58,20 +58,21 @@ Arbre ConstruireArbre(fap file) {
         Arbre a = ArbreVide();
         Arbre b = ArbreVide();
         Arbre c = ArbreVide();
-        file=extraire(file,&a,&file->priorite);
+        int i;
+        int j;
+        file=extraire(file,&a,&i);
         if (est_fap_vide(file)) {
             return a;
         }
-        file=extraire(file,&b,&file->priorite);
-        c=NouveauNoeud(a,a->etiq+b->etiq,b);
-        file=inserer(file,c,(int)(c->etiq));
+        file=extraire(file,&b,&j);
+        c=NouveauNoeud(a,65,b);
+        file=inserer(file,c,i+j);
     }
 }
 
 
 void ConstruireCode(Arbre huff) {
-    /* A COMPLETER */
-    printf("Programme non realise (ConstruireCode)\n");
+    
 }
 
 void Encoder(FILE *fic_in, FILE *fic_out, Arbre ArbreHuffman) {
